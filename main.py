@@ -64,18 +64,11 @@ if len(services_classed['indexer']) == 0:
 
 print('\n===MEDIA SERVERS===')
 services_classed['ms'] = []
-print('Use PleX? [Y/n]', end=" ")
-take_input('plex', 'ms')
-if services_classed['ms'].__contains__('plex'):
-    print('Use Tautulli? [Y/n]', end=" ")
-    take_input('tautulli', 'ms')
-    if services_classed['servarr'].__contains__('sonarr') or services_classed['servarr'].__contains__('radarr'):
-        print('Use Overseerr? [Y/n]', end=" ")
-        take_input('overseerr', 'servarr')
-print('Use Jellyfin? [Y/n]', end=" ")
-take_input('jellyfin', 'ms')
-if (services_classed['ms'].__contains__('jellyfin')
-        and (services_classed['servarr'].__contains__('sonarr') or services_classed['servarr'].__contains__('radarr'))):
+print('Use Tautulli? [Y/n]', end=" ")
+take_input('tautulli', 'ms')
+if services_classed['servarr'].__contains__('sonarr') or services_classed['servarr'].__contains__('radarr'):
+    print('Use Overseerr? [Y/n]', end=" ")
+    take_input('overseerr', 'servarr')
     print('Use Jellyseerr? [Y/n]', end=" ")
     take_input('jellyseerr', 'servarr')
 if len(services_classed['ms']) == 0:
@@ -106,10 +99,6 @@ print('Please enter your timezone (like "Europe/Amsterdam")', end=' ')
 timezone = input()
 if len(timezone) == 0:
     timezone = 'Europe/Amsterdam'
-plex_claim = ''
-if services.__contains__('plex'):
-    print('If you have a PleX claim token, enter it now. Otherwise, just press enter.', end=' ')
-    plex_claim = input()
 
 print('Where would you like to keep your files?', end=' ')
 root_dir = take_directory_input()
@@ -121,7 +110,7 @@ compose.write(
     'services:\n'
 )
 
-container_config = ContainerConfig(root_dir, timezone, plex_claim=plex_claim)
+container_config = ContainerConfig(root_dir, timezone)
 permission_setup = UserGroupSetup(root_dir=root_dir)
 
 for service in services:

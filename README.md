@@ -26,13 +26,8 @@ crash*. It doesn't necessarily mean it will run well on your system ;) It featur
   features for management.
 - [SABnzbd](https://sabnzbd.org/) can download nzb's
   features for management.
-- [PleX](https://www.plex.tv/) is a mediaserver. Using this, you get access to a Netflix-like
-  interface across many devices like your laptop or computer, your phone, your TV and more. For
-  some features, you need a [PleX pass](https://www.plex.tv/nl/plex-pass/).
 - [Tautulli](https://tautulli.com/) is a monitoring application for PleX  which can keep track of
   what has been watched, who watched it, when and where they watched it, and how it was watched.
-- [Jellyfin](https://jellyfin.org/) is an alternative for PleX. Which you'd like to use is a matter
-  of preference, and you *could* even use both, although this is probably a waste of resources.
 - [Overseerr](https://overseerr.dev/) is a show and movie request management and media discovery
    tool.
 - [Jellyseerr](https://github.com/Fallenbagel/jellyseerr) is like Overseerr, but for Jellyfin.
@@ -51,10 +46,7 @@ process. Please take a look at [important notes](#important-notes) before you co
    have cloned this in.
 4. Run `setup.sh` as superuser. This will set up your users, a system of directories, ensure
    permissions are set correctly and sets some more environment variables for docker compose.
-5. Take a look at the `docker-compose.yml` file. If there are services you would like to ignore
-   (for example, running PleX and Jellyfin at the same time is a bit unusual), you can comment them
-   out by placing `#` in front of the lines. This ensures they are ignored by Docker compose.
-6. Run `docker compose up`.
+5. Run `docker compose up`.
 
 That's it! Your containers are now up and you can continue to set up the settings in them. Please
 take a look at [important notes](#important-notes) before you continue.

@@ -2,12 +2,10 @@ class ContainerConfig:
     def __init__(self,
                  root_dir,
                  timezone,
-                 plex_claim='',
                  ):
         self.root_dir = root_dir
         self.timezone = timezone
         self.config_dir = root_dir + '/config'
-        self.plex_claim = plex_claim
         self.movie_dir = root_dir + '/media/movies'
         self.tv_dir = root_dir + '/media/tv'
         self.music_dir = root_dir + '/media/music'
@@ -16,30 +14,11 @@ class ContainerConfig:
         self.torrent_dir = root_dir + '/data/torrents'
         self.usenet_dir = root_dir + '/data/usenet'
 
-    def plex(self):
-        return (
-            '  plex:\n'
-            '    image: lscr.io/linuxserver/plex:latest\n'
-            '    container_name: plex\n'
-            '    network_mode: host\n'
-            '    environment:\n'
-            '      - PUID=13010\n'
-            '      - PGID=13000\n'
-            '      - VERSION=docker\n'
-            '      - PLEX_CLAIM=' + self.plex_claim + '\n'
-            '    volumes:\n'
-            '      - ' + self.config_dir + '/plex-config:/config\n'
-            '      - ' + self.root_dir + '/data/media:/media\n'
-            '    restart: unless-stopped\n\n'
-        )
-
     def tautulli(self):
         return (
             '  tautulli:\n'
             '    image: lscr.io/linuxserver/tautulli:latest\n'
             '    container_name: tautulli\n'
-            '    depends_on:\n'
-            '      - plex\n'
             '    environment:\n'
             '      - PUID=${UID}\n'
             '      - PGID=13000\n'
@@ -48,24 +27,6 @@ class ContainerConfig:
             '      - ' + self.config_dir + '/tautulli-config:/config\n'
             '    ports:\n'
             '      - "8181:8181"\n'
-            '    restart: unless-stopped\n\n'
-        )
-
-    def jellyfin(self):
-        return (
-            '  jellyfin:\n'
-            '    image: lscr.io/linuxserver/jellyfin:latest\n'
-            '    container_name: jellyfin\n'
-            '    environment:\n'
-            '      - PUID=${UID}\n'
-            '      - PGID=13000\n'
-            '      - UMASK=002\n'
-            '      - TZ=' + self.timezone + '\n'
-            '    volumes:\n'
-            '      - ' + self.config_dir + '/jellyfin-config:/config\n'
-            '      - ' + self.root_dir + '/data/media:/data\n'
-            '    ports:\n'
-            '      - "8096:8096"\n'
             '    restart: unless-stopped\n\n'
         )
 

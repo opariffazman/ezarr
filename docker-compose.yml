@@ -104,25 +104,9 @@ services:
       - "9696:9696"
     restart: unless-stopped
 
-  plex:
-    image: lscr.io/linuxserver/plex:latest
-    container_name: plex
-    network_mode: host
-    environment:
-      - PUID=13010
-      - PGID=13000
-      - VERSION=docker
-      - PLEX_CLAIM=
-    volumes:
-      - /home/user/ezarr/config/plex-config:/config
-      - /home/user/ezarr/data/media:/media
-    restart: unless-stopped
-
   tautulli:
     image: lscr.io/linuxserver/tautulli:latest
     container_name: tautulli
-    depends_on:
-      - plex
     environment:
       - PUID=${UID}
       - PGID=13000
@@ -131,21 +115,6 @@ services:
       - /home/user/ezarr/config/tautulli-config:/config
     ports:
       - "8181:8181"
-    restart: unless-stopped
-
-  jellyfin:
-    image: lscr.io/linuxserver/jellyfin:latest
-    container_name: jellyfin
-    environment:
-      - PUID=${UID}
-      - PGID=13000
-      - UMASK=002
-      - TZ=Europe/Amsterdam
-    volumes:
-      - /home/user/ezarr/config/jellyfin-config:/config
-      - /home/user/ezarr/data/media:/data
-    ports:
-      - "8096:8096"
     restart: unless-stopped
 
   qbittorrent:
